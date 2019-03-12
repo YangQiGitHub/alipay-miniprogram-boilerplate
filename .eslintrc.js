@@ -17,6 +17,7 @@ module.exports = {
   globals: {
     getApp: false,
     Page: false,
+    my: false,
     wx: false,
     App: false,
     getCurrentPages: false,

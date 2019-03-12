@@ -8,7 +8,7 @@ const eslint = require('gulp-eslint');
 
 const srcPath = './src/**';
 const distPath = './dist/';
-const wxmlFiles = [`${srcPath}/*.wxml`, `!${srcPath}/_template/*.wxml`];
+const axmlFiles = [`${srcPath}/*.axml`, `!${srcPath}/_template/*.axml`];
 const lessFiles = [
   `${srcPath}/*.less`,
   `!${srcPath}/styles/**/*.less`,
@@ -27,13 +27,13 @@ gulp.task('clean', done => {
   done();
 });
 
-/* 编译wxml文件 */
-const wxml = () => {
+/* 编译axml文件 */
+const axml = () => {
   return gulp
-    .src(wxmlFiles, { since: gulp.lastRun(wxml) })
+    .src(axmlFiles, { since: gulp.lastRun(axml) })
     .pipe(gulp.dest(distPath));
 };
-gulp.task(wxml);
+gulp.task(axml);
 
 /* 编译JS文件 */
 const js = () => {
@@ -54,14 +54,14 @@ const json = () => {
 gulp.task(json);
 
 /* 编译less文件 */
-const wxss = () => {
+const acss = () => {
   return gulp
     .src(lessFiles)
     .pipe(less())
-    .pipe(rename({ extname: '.wxss' }))
+    .pipe(rename({ extname: '.acss' }))
     .pipe(gulp.dest(distPath));
 };
-gulp.task(wxss);
+gulp.task(acss);
 
 /* 编译压缩图片 */
 const img = () => {
@@ -75,18 +75,18 @@ gulp.task(img);
 /* build */
 gulp.task(
   'build',
-  gulp.series('clean', gulp.parallel( 'wxml', 'js', 'json', 'wxss', 'img'))
+  gulp.series('clean', gulp.parallel( 'axml', 'js', 'json', 'acss', 'img'))
 );
 
 /* watch */
 gulp.task('watch', () => {
   let watchLessFiles = [...lessFiles];
   watchLessFiles.pop();
-  gulp.watch(watchLessFiles, wxss);
+  gulp.watch(watchLessFiles, acss);
   gulp.watch(jsFiles, js);
   gulp.watch(imgFiles, img);
   gulp.watch(jsonFiles, json);
-  gulp.watch(wxmlFiles, wxml);
+  gulp.watch(axmlFiles, axml);
 });
 
 /* dev */

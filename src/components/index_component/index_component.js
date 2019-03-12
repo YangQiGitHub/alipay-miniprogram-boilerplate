@@ -22,9 +22,6 @@ Component({
     clickInTemplate() {
       this.setData({ num: this.data.num + 1 });
     },
-    triggerPageEvent() {
-      this.triggerEvent('addNum');
-    },
     addComponentNum() {
       this.setData({ componentNum: this.data.componentNum + 1 });
     }
